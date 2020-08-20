@@ -1,5 +1,8 @@
-export function clicked() {
-  alert('chicked with function call');
+
+var tdElements = document.getElementsByTagName('TD');
+
+for(var tdElement of tdElements) {
+  
 }
 
 
