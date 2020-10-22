@@ -1,14 +1,26 @@
 var tdElements = document.getElementsByTagName("TD");
 var isO = false;
 
-// Copy from here
-var arrayOfNumbers = [1, 2, 3, 4, 5, 6];
-var sum = 0;
-for (var aNumber of arrayOfNumbers) {
-  sum = sum + aNumber;
-  // alert('current number is: ' + aNumber + ', sum of all numbers so far is: ' + sum);
-}
-// Copy to here
+
+
+
+
+
+
+
+var arrayOfAnything = [1, true, "a", "hello", { testProperty: false}, function () {alert("I'm a function");}];
+
+// alert("arrayOfAnything.length: " + arrayOfAnything.length);
+
+
+
+
+
+
+
+
+
+
 
 var arrayOfLetters = ["a", "b", "c", "d", "e"];
 var world = "world";
