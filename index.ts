@@ -1,10 +1,9 @@
 var tdElements = document.getElementsByTagName("TD");
-var isO = false;
-
 for (var tdElement of tdElements) {
   tdElement.addEventListener("click", handleClick);
 }
 
+var isO = false;
 function handleClick(event) {
   var target = event.target;
   if (isO) {
