@@ -3,15 +3,15 @@ for (var tdElement of tdElements) {
   tdElement.addEventListener("click", handleClick);
 }
 
-var isO = false;
+var isTheClickForAnO = false;
 function handleClick(event) {
   var target = event.target;
-  if (isO) {
+  if (isTheClickForAnO) {
     target.innerHTML = "O";
-    isO = false;
+    isTheClickForAnO = false;
   } else {
     target.innerHTML = "X";
-    isO = true;
+    isTheClickForAnO = true;
   }
 }
 
