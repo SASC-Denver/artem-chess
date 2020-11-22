@@ -29,13 +29,14 @@ function handleClick(event) {
 
   // Event has a target property, which contains the
   // actual element that was clicked
-  var targetTd = event.target;
+  var targetTd: HTMLElement = event.target;
 
   // If we should put down an "O" then execute the
   // block that belongs to the if statement
   if (isTheClickForAnO) {
     // Set the contents of the <td></td> to be an "O"
     targetTd.innerHTML = "O";
+    targetTd.classList.add("O");
     // Set the boolean variable to the opposite value 
     // (false) so that we place an "X" next time
     isTheClickForAnO = false;
@@ -45,6 +46,7 @@ function handleClick(event) {
   {
     // Set the contents of the <td></td> to be an "X"
     targetTd.innerHTML = "X";
+    targetTd.classList.add("X");
     // Set the boolean variable to the opposite value
     // (true) so that we place an "O" next time
     isTheClickForAnO = true;
