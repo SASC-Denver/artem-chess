@@ -1,3 +1,5 @@
+import "./style.css";
+
 // Here we find all "td" elements on the screen
 // and assign them to the tdElements variable
 var tdElements = document.getElementsByTagName("TD");
@@ -20,33 +22,40 @@ for (var tdElement of tdElements) {
 // <td></td> element
 var isTheClickForAnO = false;
 
-
 // This is a function named "handleClick" that takes
 // one parameter named "event".  The event parameter
 // is passed to this function by the browser, because
 // this function handles events
 function handleClick(event) {
-
   // Event has a target property, which contains the
   // actual element that was clicked
-  var targetTd: HTMLElement = event.target;
+  var targetTd = event.target;
 
   // If we should put down an "O" then execute the
   // block that belongs to the if statement
   if (isTheClickForAnO) {
     // Set the contents of the <td></td> to be an "O"
     targetTd.innerHTML = "O";
+
+    // An HTML element as a list CSS classes that
+    // have been applied to it, in the "classList"
+    // property.  That list has a method called "add"
+    // which lets you add a class to that element
     targetTd.classList.add("O");
-    // Set the boolean variable to the opposite value 
+
+    // Set the boolean variable to the opposite value
     // (false) so that we place an "X" next time
     isTheClickForAnO = false;
-  } else
+  }
+  
   // If we should put down an "X" then execute the
   // block that belongs to the else statement
-  {
+  else {
     // Set the contents of the <td></td> to be an "X"
     targetTd.innerHTML = "X";
+    
     targetTd.classList.add("X");
+    
     // Set the boolean variable to the opposite value
     // (true) so that we place an "O" next time
     isTheClickForAnO = true;
