@@ -1,3 +1,6 @@
+// Adds style.css to the code, this is one way to do it
+// there are other ways but they don't work on
+// stackblitz
 import "./style.css";
 
 // Here we find all "td" elements on the screen
@@ -47,15 +50,15 @@ function handleClick(event) {
     // (false) so that we place an "X" next time
     isTheClickForAnO = false;
   }
-  
+
   // If we should put down an "X" then execute the
   // block that belongs to the else statement
   else {
     // Set the contents of the <td></td> to be an "X"
     targetTd.innerHTML = "X";
-    
+
     targetTd.classList.add("X");
-    
+
     // Set the boolean variable to the opposite value
     // (true) so that we place an "O" next time
     isTheClickForAnO = true;
