@@ -4,11 +4,11 @@ var tdElements = document.getElementsByTagName("TD");
 
 var board = [
   ['X', null, 'Z'],
-  [null, 'O', null],
+  ['U', 'O', 'V'],
   ['W', null, 'Y']
 ];
 
-alert(board[0][0]);
+alert(board[1][0]);
 
 for (var tdElement of tdElements) {
   tdElement.addEventListener("click", handleClick);
