@@ -10,7 +10,7 @@ var board = [
 ];
 
 if (board[2][2]) {
-  // alert(board[1][0]);
+  // alert(board[2][2]);
 }
 
 for (var tdElement of tdElements) {
