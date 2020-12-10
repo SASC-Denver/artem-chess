@@ -13,6 +13,14 @@ if (board[2][2]) {
   // alert(board[2][2]);
 }
 
+document.getElementById("resetButton").addEventListener("click", function() {
+  for (var tdElement of tdElements) {
+    tdElement.innerHTML = "";
+    tdElement.classList.remove("O");
+    tdElement.classList.remove("X");
+  }
+});
+
 for (var tdElement of tdElements) {
   tdElement.addEventListener("click", handleClick);
 }
