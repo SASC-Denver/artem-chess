@@ -3,12 +3,15 @@ import "./style.css";
 var tdElements = document.getElementsByTagName("TD");
 
 var board = [
-  ['X', null, 'Z'],
-  ['U', 'O', 'V'],
-  ['W', null, 'Y']
+  //
+  ["X", null, null], //
+  ["X", "O", null], //
+  ["X", "O", null] //
 ];
 
-alert(board[1][0]);
+if (board[2][2]) {
+  // alert(board[1][0]);
+}
 
 for (var tdElement of tdElements) {
   tdElement.addEventListener("click", handleClick);
