@@ -4,3 +4,4 @@ import { basicVar } from "./basic";
 import { extraVar } from "./extra";
 
 console.log(basicVar + extraVar);
+
