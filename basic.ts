@@ -17,13 +17,14 @@ var isTheClickForAnO = false;
 
 function handleClick(event) {
   var targetTd = event.target;
+  var value;
   if (isTheClickForAnO) {
-    targetTd.innerHTML = "O";
-    targetTd.classList.add("O");
+    value = "O";
     isTheClickForAnO = false;
   } else {
-    targetTd.innerHTML = "X";
-    targetTd.classList.add("X");
+    value = "X";
     isTheClickForAnO = true;
   }
+  targetTd.innerHTML = value;
+  targetTd.classList.add(value);
 }
