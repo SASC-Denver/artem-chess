@@ -9,3 +9,6 @@ document.getElementById("resetButton").addEventListener("click", function() {
     tdElement.classList.remove("X");
   }
 });
+
+
+var test = 1;
