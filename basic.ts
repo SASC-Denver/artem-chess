@@ -16,7 +16,16 @@ for (var tdElement of tdElements) {
 var isTheClickForAnO = false;
 
 function handleClick(event) {
-  var targetTd = event.target;
+  var targetTd: HTMLTableCellElement = event.target;
+
+  var rowIndex = parseInt(targetTd.parentElement.getAttribute("rowIndex"));
+  var columnIndex = parseInt(targetTd.getAttribute("columnIndex"));
+
+  if (board[rowIndex][columnIndex]) {
+    // There is already a value on the board
+    return;
+  }
+
   var value;
   if (isTheClickForAnO) {
     value = "O";
@@ -25,6 +34,9 @@ function handleClick(event) {
     value = "X";
     isTheClickForAnO = true;
   }
+
+  board[rowIndex][columnIndex] = value;
+
   targetTd.innerHTML = value;
   targetTd.classList.add(value);
 }
