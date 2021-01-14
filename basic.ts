@@ -9,6 +9,41 @@ var board = [
   [null, null, null] // rowIndex="2"
 ];
 
+var winningConditions = [
+  [{ row: 0, column: 0}, { row: 1, column: 0}, { row: 2, column: 0}],
+  [{ row: 0, column: 0}, { row: 0, column: 1}, { row: 0, column: 2}],
+  [{ row: 0, column: 0}, { row: 1, column: 1}, { row: 2, column: 2}],
+];
+
+
+/**
+  [{ row: 0, column: 1}, { row: 1, column: 1}, { row: 2, column: 1}],
+  [{ row: 0, column: 2}, { row: 1, column: 2}, { row: 2, column: 2}],
+
+
+  [{ row: 0, column: 0}, { row: 1, column: 0}, { row: 2, column: 0}],
+  [{ row: 0, column: 1}, { row: 1, column: 1}, { row: 2, column: 1}],
+  [{ row: 0, column: 2}, { row: 1, column: 2}, { row: 2, column: 2}],
+
+  [{ row: 0, column: 0}, { row: 1, column: 1}, { row: 2, column: 2}],
+  [{ row: 0, column: 0}, { row: 1, column: 1}, { row: 2, column: 2}],
+  [{ row: 0, column: 0}, { row: 1, column: 1}, { row: 2, column: 2}],
+  [{ row: 0, column: 0}, { row: 1, column: 1}, { row: 2, column: 2}],
+  [{ row: 0, column: 0}, { row: 1, column: 1}, { row: 2, column: 2}],
+  [{ row: 0, column: 0}, { row: 1, column: 1}, { row: 2, column: 2}],
+  [{ row: 0, column: 0}, { row: 1, column: 1}, { row: 2, column: 2}],
+  [{ row: 0, column: 0}, { row: 1, column: 1}, { row: 2, column: 2}],
+  [{ row: 0, column: 0}, { row: 1, column: 1}, { row: 2, column: 2}],
+  [{ row: 0, column: 0}, { row: 1, column: 1}, { row: 2, column: 2}],
+  [{ row: 0, column: 0}, { row: 1, column: 1}, { row: 2, column: 2}],
+  [{ row: 0, column: 0}, { row: 1, column: 1}, { row: 2, column: 2}],
+];
+*/
+function whoWon() {
+
+  // return 'X' 'O' or null
+}
+
 for (var tdElement of tdElements) {
   tdElement.addEventListener("click", handleClick);
 }
