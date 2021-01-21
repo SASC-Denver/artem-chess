@@ -2,7 +2,7 @@ export var basicVar = "basic";
 
 var tdElements = document.getElementsByTagName("TD");
 
-var board = [
+export var board = [
   //
   [null, null, null], // rowIndex="0"
   [null, null, null], // rowIndex="1"
@@ -21,8 +21,26 @@ var winningConditions = [
 ];
 
 function whoWon() {
-  // return 'X' 'O' or null
+  for (var winningCondition of winningConditions) {
+    var winningValue = whoWonACondition(winningCondition);
+    if (winningValue) {
+      return winningValue;
+    }
+  }
   return null;
+}
+
+function whoWonACondition(winningCondition) {
+  var firstCell = winningCondition[0];
+  var firstValue = board[firstCell.row][firstCell.column];
+  for (var i = 1; i < winningCondition.length; i++) {
+    var nextCell = winningCondition[i];
+    var nextValue = board[nextCell.row][nextCell.column];
+    if (firstValue !== nextValue) {
+      return null;
+    }
+  }
+  return firstValue;
 }
 
 for (var tdElement of tdElements) {
@@ -55,5 +73,8 @@ function handleClick(event) {
 
   targetTd.innerHTML = value;
   targetTd.classList.add(value);
-  whoWon();
+  var winningValue = whoWon();
+  if (winningValue) {
+    alert('The "' + winningValue + '"s have won!');
+  }
 }
