@@ -2,6 +2,8 @@ export var basicVar = "basic";
 
 var tdElements = document.getElementsByTagName("TD");
 
+var joinButton = document.getElementById("join");
+
 export var board = [
   //
   [null, null, null], // rowIndex="0"
@@ -45,6 +47,12 @@ function whoWonACondition(winningCondition) {
 
 for (var tdElement of tdElements) {
   tdElement.addEventListener("click", handleClick);
+}
+
+joinButton.addEventListener("click", join);
+
+function join(event) {
+  alert("Joining...");
 }
 
 var isTheClickForAnO = false;

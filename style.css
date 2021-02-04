@@ -1,30 +1,34 @@
-	h1 {
-    font-size: 16px;
-    text-align: center;
-    /* width: 100%; */
-  }
+h1 {
+  font-size: 16px;
+  text-align: center;
+  /* width: 100%; */
+}
 
-  #game {
-    display: none;
-  }
+#game {
+  display: none;
+}
+/* 
+#enter {
+  display: none;
+} */
 
-  td {
-		border: 1px solid black;
-		font-size: 50px;
-		height: 50px;
-		line-height: 50px;
-		text-align: center;
-		width: 50px;
-	}
+td {
+  border: 1px solid black;
+  font-size: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  width: 50px;
+}
 
-	.O {
-		color: red;
-	}
+.O {
+  color: red;
+}
 
-	.X {
-		color: blue;
-	}
+.X {
+  color: blue;
+}
 
-	.won {
-		background-color: yellow;
-	}
+.won {
+  background-color: yellow;
+}
