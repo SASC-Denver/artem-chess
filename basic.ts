@@ -52,7 +52,18 @@ for (var tdElement of tdElements) {
 joinButton.addEventListener("click", join);
 
 function join(event) {
-  alert("Joining...");
+  var playerNameText: HTMLInputElement = document.getElementById(
+    "playerName"
+  ) as any;
+  put("join", {
+    playerName: playerNameText.value
+  });
+  var enterDiv: HTMLElement = document.getElementById("enter") as any;
+  enterDiv.classList.add("hidden");
+
+  var waitingDiv: HTMLElement = document.getElementById("waiting") as any;
+
+  waitingDiv.classList.remove("hidden");
 }
 
 var isTheClickForAnO = false;
@@ -85,4 +96,23 @@ function handleClick(event) {
   if (winningValue) {
     alert('The "' + winningValue + '"s have won!');
   }
+}
+
+async function put(url, data) {
+  // Awaiting fetch which contains method,
+  // headers and content-type and body
+  const response = await fetch("http://159.65.177.191:8080/api/" + url, {
+    method: "PUT",
+    headers: {
+      "Content-type": "application/json",
+      "Referrer-Policy": "origin"
+    },
+    body: JSON.stringify(data)
+  });
+
+  // Awaiting response.json()
+  const resData = await response.json();
+
+  // Return response data
+  return resData;
 }
