@@ -52,17 +52,16 @@ interface JoinResponse {
 
 interface MoveRequest {
   gameId: string;
-  playerId: string;
   move: {
     column: number;
     row: number;
   };
+  playerId: string;
 }
 
 interface MoveResponse {
   board: boolean[][];
   state: GameState;
-  yourMove: boolean;
 }
 
 interface MyGame {
@@ -286,7 +285,7 @@ function handleClick(event) {
     }
     myGame.game.board = response.board;
     myGame.game.state = response.state;
-    myGame.myMove = response.yourMove;
+    myGame.myMove = false;
     switch (response.state) {
       case GameState.FINISHED: {
         alert("Game Over!");
