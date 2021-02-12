@@ -212,6 +212,11 @@ function join(event) {
               `tr[rowindex="${rowIndex}"] > td[columnIndex="${columnIndex}"]`
             );
             cellTd.innerHTML = cellValue === null ? "" : cellValue ? "X" : "O";
+            if (cellValue !== null) {
+              if (!cellTd.classList.contains(cellValue ? "X" : "O")) {
+                cellTd.classList.add(cellValue ? "X" : "O");
+              }
+            }
           }
         }
 
