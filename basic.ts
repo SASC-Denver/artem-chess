@@ -158,22 +158,24 @@ function join(event) {
     }
 
     checkIntervalId = setInterval(() => {
-      var now = new Date().getTime();
-      if (now - 60 * 60 * 1000 < myGame.game.lastMoveTime) {
-        alert("Game timed out");
-        enterDiv.classList.remove("hidden");
-        gameDiv.classList.add("hidden");
-        waitingDiv.classList.add("hidden");
-      }
       if (myGame.myMove) {
         return;
       }
 
+      if (!myGame.playerId || !myGame.game.id) {
+        return;
+      }
+
       put("check", {
-        playerName: playerNameText.value
-      }).then((response: GameCheckResponse) => {
+        gameId: myGame.game.id,
+        playerId: myGame.playerId
+      } as GameCheckRequest).then((response: GameCheckResponse) => {
         if (((response as any) as ErrorResponse).error) {
+          clearInterval(checkIntervalId);
           alert((response as any).error);
+          enterDiv.classList.remove("hidden");
+          gameDiv.classList.add("hidden");
+          waitingDiv.classList.add("hidden");
           return;
         }
         switch (response.state) {
@@ -208,8 +210,17 @@ function join(event) {
             var cellTd = document.querySelector(
               `tr[rowindex="${rowIndex}"] > td[columnIndex="${columnIndex}"]`
             );
-            cellTd.innerHTML = cellValue ? "X" : "O";
+            cellTd.innerHTML = cellValue === null ? "" : cellValue ? "X" : "O";
           }
+        }
+
+        var now = new Date().getTime();
+        if (now - 60 * 60 * 1000 < myGame.game.lastMoveTime) {
+          clearInterval(checkIntervalId);
+          alert("Game timed out");
+          enterDiv.classList.remove("hidden");
+          gameDiv.classList.add("hidden");
+          waitingDiv.classList.add("hidden");
         }
       });
     }, 3000);
