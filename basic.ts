@@ -57,7 +57,6 @@ interface MoveRequest {
     column: number;
     row: number;
   };
-  state: GameState;
 }
 
 interface MoveResponse {
@@ -81,13 +80,6 @@ var tdElements = document.getElementsByTagName("TD");
 
 var joinButton = document.getElementById("join");
 
-export var board = [
-  //
-  [null, null, null], // rowIndex="0"
-  [null, null, null], // rowIndex="1"
-  [null, null, null] // rowIndex="2"
-];
-
 var winningConditions = [
   [{ row: 0, column: 0 }, { row: 1, column: 0 }, { row: 2, column: 0 }],
   [{ row: 0, column: 1 }, { row: 1, column: 1 }, { row: 2, column: 1 }],
@@ -98,6 +90,8 @@ var winningConditions = [
   [{ row: 0, column: 0 }, { row: 1, column: 1 }, { row: 2, column: 2 }],
   [{ row: 0, column: 2 }, { row: 1, column: 1 }, { row: 0, column: 2 }]
 ];
+
+var checkIntervalId;
 
 function whoWon() {
   for (var winningCondition of winningConditions) {
@@ -111,10 +105,10 @@ function whoWon() {
 
 function whoWonACondition(winningCondition) {
   var firstCell = winningCondition[0];
-  var firstValue = board[firstCell.row][firstCell.column];
+  var firstValue = myGame.game.board[firstCell.row][firstCell.column];
   for (var i = 1; i < winningCondition.length; i++) {
     var nextCell = winningCondition[i];
-    var nextValue = board[nextCell.row][nextCell.column];
+    var nextValue = myGame.game.board[nextCell.row][nextCell.column];
     if (firstValue !== nextValue) {
       return null;
     }
@@ -139,11 +133,13 @@ function join(event) {
 
   var gameDiv: HTMLElement = document.getElementById("game") as any;
 
-  var checkIntervalId;
-
   put("join", {
     playerName: playerNameText.value
   }).then((response: JoinResponse) => {
+    if (((response as any) as ErrorResponse).error) {
+      alert((response as any).error);
+      return;
+    }
     switch (response.state) {
       case GameState.STARTED: {
         waitingDiv.classList.add("hidden");
@@ -173,6 +169,22 @@ function join(event) {
       put("check", {
         playerName: playerNameText.value
       }).then((response: GameCheckResponse) => {
+        if (((response as any) as ErrorResponse).error) {
+          alert((response as any).error);
+          return;
+        }
+        switch (response.state) {
+          case GameState.STARTED: {
+            waitingDiv.classList.add("hidden");
+            gameDiv.classList.remove("hidden");
+            break;
+          }
+          case GameState.FINISHED: {
+            clearInterval(checkIntervalId);
+            alert("Game Over!");
+            break;
+          }
+        }
         myGame.myMove = response.yourMove;
       });
     }, 3000);
@@ -197,35 +209,54 @@ function join(event) {
   waitingDiv.classList.remove("hidden");
 }
 
-var isTheClickForAnO = false;
-
 function handleClick(event) {
+  if (!myGame.myMove) {
+    // its the other player's move
+    return;
+  }
+
   var targetTd: HTMLTableCellElement = event.target;
 
   var rowIndex = parseInt(targetTd.parentElement.getAttribute("rowIndex"));
   var columnIndex = parseInt(targetTd.getAttribute("columnIndex"));
 
-  if (board[rowIndex][columnIndex]) {
+  if (myGame.game.board[rowIndex][columnIndex]) {
     // There is already a value on the board
     return;
   }
 
-  var value;
-  if (isTheClickForAnO) {
-    value = "O";
-    isTheClickForAnO = false;
-  } else {
-    value = "X";
-    isTheClickForAnO = true;
-  }
+  var value = myGame.mySign;
 
-  board[rowIndex][columnIndex] = value;
+  myGame.game.board[rowIndex][columnIndex] =
+    myGame.mySign === "X" ? true : false;
 
   targetTd.innerHTML = value;
   targetTd.classList.add(value);
+
+  put("move", {
+    gameId: myGame.game.id,
+    move: {
+      column: columnIndex,
+      row: rowIndex
+    },
+    playerId: myGame.playerId
+  } as MoveRequest).then((response: MoveResponse) => {
+    if (((response as any) as ErrorResponse).error) {
+      alert((response as any).error);
+      return;
+    }
+    switch (response.state) {
+      case GameState.FINISHED: {
+        alert("Game Over!");
+        break;
+      }
+    }
+  });
+
   var winningValue = whoWon();
-  if (winningValue) {
-    alert('The "' + winningValue + '"s have won!');
+  if (winningValue !== null) {
+    clearInterval(checkIntervalId);
+    alert('The "' + (winningValue ? "X" : "O") + '"s have won!');
   }
 }
 
