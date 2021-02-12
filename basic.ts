@@ -133,6 +133,9 @@ function join(event) {
 
   var gameDiv: HTMLElement = document.getElementById("game") as any;
 
+  var myNameSpan: HTMLElement = document.getElementById("myName") as any;
+  myNameSpan.innerText = playerNameText.value;
+
   put("join", {
     playerName: playerNameText.value
   }).then((response: JoinResponse) => {
@@ -186,6 +189,28 @@ function join(event) {
           }
         }
         myGame.myMove = response.yourMove;
+        myGame.otherPlayerName = response.otherPlayerName;
+        var otherPlayerNameDiv: HTMLElement = document.getElementById(
+          "otherPlayerName"
+        ) as any;
+        otherPlayerNameDiv.innerText = myGame.otherPlayerName;
+
+        var game = myGame.game;
+        game.board = response.board;
+        game.lastMoveTime = response.lastMoveTime;
+        game.state = response.state;
+
+        var board = game.board;
+        for (var rowIndex = 0; rowIndex < board.length; rowIndex++) {
+          var row = board[rowIndex];
+          for (var columnIndex = 0; columnIndex < row.length; columnIndex++) {
+            var cellValue = row[columnIndex];
+            var cellTd = document.querySelector(
+              `tr[rowindex="${rowIndex}"] > td[columnIndex="${columnIndex}"]`
+            );
+            cellTd.innerHTML = cellValue ? "X" : "O";
+          }
+        }
       });
     }, 3000);
 
@@ -245,6 +270,8 @@ function handleClick(event) {
       alert((response as any).error);
       return;
     }
+    myGame.game.board = response.board;
+    myGame.game.state = response.state;
     switch (response.state) {
       case GameState.FINISHED: {
         alert("Game Over!");
