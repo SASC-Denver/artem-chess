@@ -60,8 +60,9 @@ interface MoveRequest {
 }
 
 interface MoveResponse {
-  state: GameState;
   board: boolean[][];
+  state: GameState;
+  yourMove: boolean;
 }
 
 interface MyGame {
@@ -153,6 +154,7 @@ function join(event) {
         break;
       }
       default: {
+        alert(`GameState: ${response.state}`);
         return;
       }
     }
@@ -239,6 +241,7 @@ function join(event) {
       otherPlayerName: response.otherPlayerName,
       playerId: response.playerId
     };
+    // alert(JSON.stringify(myGame, null, 5));
   });
   enterDiv.classList.add("hidden");
 
@@ -283,6 +286,7 @@ function handleClick(event) {
     }
     myGame.game.board = response.board;
     myGame.game.state = response.state;
+    myGame.myMove = response.yourMove;
     switch (response.state) {
       case GameState.FINISHED: {
         alert("Game Over!");
